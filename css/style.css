@@ -13,9 +13,9 @@ body {
 button {
   font-family: "Adobe Ming Std";
   display: inline-block;
-  padding: 15px 25px;
+  padding: 10px 20px;
   margin: 15px;
-  font-size: 24px;
+  font-size: 14px;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -55,43 +55,27 @@ h5 {
 
 .wrapperExample1 {
   display: grid; }
+  @media screen and (min-width: 300px) {
+    .wrapperExample1 {
+      margin: 1% 1% 1% 1%; } }
+  @media screen and (min-width: 700px) {
+    .wrapperExample1 {
+      margin: 1% 4% 1% 4%; } }
+  @media screen and (min-width: 1300px) {
+    .wrapperExample1 {
+      margin: 1% 8% 1% 8%; } }
 
 * {
   box-sizing: border-box; }
 
 .wrapperExample1 {
-  border: 2px solid #f76707;
+  border: 2px solid white;
   border-radius: 5px;
-  background-color: #fff4e6; }
+  background-color: white; }
 
 .wrapperExample1 > div {
-  border: 2px solid #ffa94d;
+  border: 2px solid #d9d3d1;
   border-radius: 5px;
   background-color: white;
   padding: 1em;
   color: #d9480f; }
-
-.nestedExample1 {
-  border: 2px solid #ffec99;
-  border-radius: 5px;
-  background-color: #fff9db;
-  padding: 1em; }
-
-.wrapperExample11 {
-  border: 2px solid #f76707;
-  border-radius: 5px;
-  background-color: #fff4e6; }
-
-.wrapperExample11 > div {
-  border: 2px solid #ffa94d;
-  border-radius: 5px;
-  background-color: #ffd8a8;
-  padding: 1em;
-  color: #d9480f; }
-
-.wrapperExample11 {
-  display: flex;
-  flex-wrap: wrap; }
-
-.wrapperExample11 > div {
-  flex: 1 1 200px; }

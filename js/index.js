@@ -1,7 +1,7 @@
 
 function displayAll() {
 
-    document.getElementById("display1").innerHTML = "<h1>" +"Step 1: Create Account." + "</h1>"+ "<h4>" + "Account Address"+ "</h4>"+"<textarea>" + "</textarea>"+ "<button onclick='createNewAccountFuncWeb()'>" + "Generate Account" + "</button>" ;
+    document.getElementById("display1").innerHTML = "<h1>" +"Step 1: Create Account." + "</h1>"+ "<h4>" + "Account Address"+ "</h4>" + "<textarea>" + "</textarea>"+ "<button onclick='createNewAccountFuncWeb()'>" + "Generate Account" + "</button>" ;
 
 
     document.getElementById("display2").innerHTML =  "<h1>" +"Step 2: Claim Nas."  + "</h1>"+ "<br>"+ "<button onclick='claimNas()'>" + "Claim Nas"+ "</button>"
