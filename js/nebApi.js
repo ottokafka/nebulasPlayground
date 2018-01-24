@@ -41,7 +41,7 @@ function createNewAccountFuncWeb() {
 
     account = Account.NewAccount();
 
-    document.getElementById("display1").innerHTML = "<h1>" +"Step 1 Create account." + "</h1>"+ "<h5>" + "from address"+ "</h5>"+"<textarea>" + account.getAddressString()+"</textarea>"+ "<button onclick='createNewAccountFuncWeb()'>" + "Generate Account" + "</button>";
+    document.getElementById("display1").innerHTML = "<h1>" +"Step 1: Create Account." + "</h1>"+ "<h4>" + "Account Address"+ "</h4>"+"<textarea>" + account.getAddressString()+"</textarea>"+ "<button onclick='createNewAccountFuncWeb()'>" + "Generate Account" + "</button>";
 
     console.log(account.getAddressString());
     console.log(account.getPrivateKeyString());
@@ -59,26 +59,31 @@ function claimNas() {
     request.send();
     result = JSON.parse(request.responseText);
 
-    document.getElementById("display2").innerHTML = "<h3>" + "please wait " + "</h3>" + "<i class='material-icons'>access_time</i>" + "<h5>"+ "Getting you tokens Now" + "</h5>";
+
+    document.getElementById("display2").innerHTML = "<h1>" + "Please Wait " + "</h1>" + "<i class='material-icons'>access_time</i>" + "<h5>"+ "Getting your Nas Tokens Now" + "</h5>";
 
     setTimeout(function () {
        state = neb.api.getAccountState(account.getAddressString());
         generatedAccountStateBalance.push(state);
 
-        document.getElementById("display2").innerHTML = "<h5>" + "Your Tokens have been received" +  "</h5>" + "<h6>" + " Great Job! " + "</h6>";
 
-        document.getElementById("display2").innerHTML =  "<h1>" +"Step 2 Claim Nas."  + "</h1>"+ "<h3>" +" Tokens received "  + "</h3>"+ "<button onclick='claimNas()'>" + "Claim Nas"+ "</button>"
+        document.getElementById("display2").innerHTML =  "<h1>" +"Step 2: Claim Nas."  + "</h1>"+ "<h3>" +" Tokens received "  + "<i class='material-icons'>thumb_up</i>"+"</h3>" +"<button onclick='claimNas()'>" + "Claim Nas"+ "</button>"
 
         console.log(state.balance);
         console.log(state.nonce);
     }, 5000);
 }
 
+
+
+
 //------------ Account balance ------------
 
 function getAccountStateFuncWeb() {
 
-    document.getElementById("display3").innerHTML = "<h1>" + "Step 3 Check account Balance." +"</h1>" + "<h3>" + "Your Balance: " + state.balance + "</h3>" + "<h3>" + "nonce " + state.nonce + "</h3>"+  "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>"
+
+
+    document.getElementById("display3").innerHTML = "<h1>" + "Step 3: Check Account Balance." +"</h1>" + " <i class='material-icons'>account_balance</i> " + "<h3>" + "Your Balance: " + state.balance + "</h3>" + "<h3>" + "Nonce: " + state.nonce + "</h3>"+  "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>"
 
     console.log(state.balance);
     console.log(state.nonce);
@@ -100,7 +105,7 @@ function generateTransaction() {
    // document.getElementById("display4.1").innerHTML = "<textarea>" + tx.toString() + "</textarea>" + "<h6>" + "You just created a txHash and signed the transaction "+ "</h6>";
 
 
-    document.getElementById("display4").innerHTML =  "<h1>" + "Step 4 Make TxHash and Sign."   + "</h1>"+ "<textarea>" + tx.toString() + "</textarea>"+ "<button onclick='generateTransaction()'>" + "Generate txHash and sign"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>"
+    document.getElementById("display4").innerHTML =  "<h1>" + "Step 4: Make TxHash and Sign."   + "</h1>"+ "<textarea>" + tx.toString() + "</textarea>"+ "<button onclick='generateTransaction()'>" + "Generate TxHash and Sign"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>"
 
 
     console.log(tx.toString());
@@ -115,7 +120,7 @@ function submitTransaction() {
     //document.getElementById('display5.1').innerHTML = "<textarea>" + txhash + "</textarea>" + "<h6>" + "You just created a txHash and signed the transaction "+ "</h6>";
 
 
-    document.getElementById("display5").innerHTML =   "<h1>" + "Step 5 Submit the Transaction."  + "</h1>"+ "<textarea>" + txhash + "</textarea>"+ "<button onclick='submitTransaction()'>" + "Submit Transaction"+ "</button>" + "<p>" + "This will send some funds to your newly created account"+ "</p>"
+    document.getElementById("display5").innerHTML =   "<h1>" + "Step 5: Submit the Transaction."  + "</h1>"+ "<textarea>" + txhash + "</textarea>"+ "<button onclick='submitTransaction()'>" + "Submit Transaction"+ "</button>" + "<p>" + "This will send some funds to your newly created account"+ "</p>"
 }
 
 
@@ -124,7 +129,7 @@ function receiptTransaction() {
 
         //document.getElementById('display6.1').innerHTML = "<textarea>" + JSON.stringify(resp) + "</textarea>" + "<h6>" + "Here's your receipt "+ "</h6>";
 
-        document.getElementById("display6").innerHTML = "<h1>" + "Step 6 Get a Receipt."   + "</h1>"+ "<textarea>" + JSON.stringify(resp) + "</textarea>"+ "<button onclick='receiptTransaction()'>" + "Receipt "+ "</button>" + "<p>" + "Your info"+ "</p>"
+        document.getElementById("display6").innerHTML = "<h1>" + "Step 6: Get a Receipt."   + "</h1>"+ "<textarea>" + JSON.stringify(resp) + "</textarea>"+ "<button onclick='receiptTransaction()'>" + "Receipt "+ "</button>"
 
     });
 }
