@@ -78,7 +78,7 @@ function claimNas() {
 
 function getAccountStateFuncWeb() {
 
-    document.getElementById("display3.1").innerHTML = "<h5>" + "Your Balance: " + state.balance + "</h5>" + "<h6>" + "nonce " + state.nonce + "</h6>";
+    document.getElementById("display3").innerHTML = "<h1>" + "Step 3 Check account Balance." +"</h1>" + "<h3>" + "Your Balance: " + state.balance + "</h3>" + "<h3>" + "nonce " + state.nonce + "</h3>"+  "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>"
 
     console.log(state.balance);
     console.log(state.nonce);
@@ -96,7 +96,12 @@ function generateTransaction() {
 //txArray.push(tx);
 
     // ----------Note: You have to sign the transaction before displaying it:
-    document.getElementById("display4.1").innerHTML = "<textarea>" + tx.toString() + "</textarea>" + "<h6>" + "You just created a txHash and signed the transaction "+ "</h6>";
+
+   // document.getElementById("display4.1").innerHTML = "<textarea>" + tx.toString() + "</textarea>" + "<h6>" + "You just created a txHash and signed the transaction "+ "</h6>";
+
+
+    document.getElementById("display4").innerHTML =  "<h1>" + "Step 4 Make TxHash and Sign."   + "</h1>"+ "<textarea>" + tx.toString() + "</textarea>"+ "<button onclick='generateTransaction()'>" + "Generate txHash and sign"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>"
+
 
     console.log(tx.toString());
     console.log(tx.toProtoString());
@@ -107,14 +112,20 @@ function submitTransaction() {
     var resp = neb.api.sendRawTransaction(tx.toProtoString());
     txhash = resp.txhash;
 
-    document.getElementById('display5.1').innerHTML = "<textarea>" + txhash + "</textarea>" + "<h6>" + "You just created a txHash and signed the transaction "+ "</h6>";
+    //document.getElementById('display5.1').innerHTML = "<textarea>" + txhash + "</textarea>" + "<h6>" + "You just created a txHash and signed the transaction "+ "</h6>";
+
+
+    document.getElementById("display5").innerHTML =   "<h1>" + "Step 5 Submit the Transaction."  + "</h1>"+ "<textarea>" + txhash + "</textarea>"+ "<button onclick='submitTransaction()'>" + "Submit Transaction"+ "</button>" + "<p>" + "This will send some funds to your newly created account"+ "</p>"
 }
 
 
 function receiptTransaction() {
     neb.api.getTransactionReceipt(txhash, function (err, resp) {
 
-        document.getElementById('display6.1').innerHTML = "<textarea>" + JSON.stringify(resp) + "</textarea>" + "<h6>" + "Here's your receipt "+ "</h6>";
+        //document.getElementById('display6.1').innerHTML = "<textarea>" + JSON.stringify(resp) + "</textarea>" + "<h6>" + "Here's your receipt "+ "</h6>";
+
+        document.getElementById("display6").innerHTML = "<h1>" + "Step 6 Get a Receipt."   + "</h1>"+ "<textarea>" + JSON.stringify(resp) + "</textarea>"+ "<button onclick='receiptTransaction()'>" + "Receipt "+ "</button>" + "<p>" + "Your info"+ "</p>"
+
     });
 }
 

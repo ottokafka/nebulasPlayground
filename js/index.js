@@ -8,7 +8,7 @@ function displayAll() {
 
 
 
-        document.getElementById("display3").innerHTML = "<h1>" + "Step 3 Check account Balance."   + "</h1>"+ "<br>"+ "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>"
+        document.getElementById("display3").innerHTML = "<h1>" + "Step 3 Check account Balance."   + "</h1>"+  "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>"
 
 
     document.getElementById("display4").innerHTML =  "<h1>" + "Step 4 Make TxHash and Sign."   + "</h1>"+ "<br>"+ "<button onclick='generateTransaction()'>" + "Generate txHash and sign"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>"
