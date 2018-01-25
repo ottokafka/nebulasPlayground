@@ -41,7 +41,7 @@ function createNewAccountFuncWeb() {
 
     account = Account.NewAccount();
 
-    document.getElementById("display1").innerHTML = "<h1>" +"Step 1: Create Account." + "</h1>"+ "<h4>" + "Account Address"+ "</h4>"+"<textarea>" + account.getAddressString()+"</textarea>"+ "<button onclick='createNewAccountFuncWeb()'>" + "Generate Account" + "</button>";
+    document.getElementById("display1").innerHTML = "<h1>" +"Step 1: Create Account." + "</h1>"+ "<h4>" + "Account Address"+ "</h4>"+"<textarea>" + account.getAddressString()+"</textarea>" + "<h6>"+ "<i class=\"material-icons\">code</i> "+ "API: Account.NewAccount( )" +"</h6>" +"<button onclick='createNewAccountFuncWeb()'>" + "Generate Account" + "</button>";
 
     console.log(account.getAddressString());
     console.log(account.getPrivateKeyString());
@@ -52,26 +52,69 @@ function createNewAccountFuncWeb() {
 // --------------- Claim Nas ----------------
 
 function claimNas() {
-    var email = Math.random() + "test@demo.io";
-    var url = "https://testnet.nebulas.io/claim/api/claim/"+ email+ "/"+ account.getAddressString() +"/";
-    var request = new window.XMLHttpRequest();
-    request.open("GET", url, false);
-    request.send();
-    result = JSON.parse(request.responseText);
+
+    //todo if statement user has own address inputed
+   var userInput = document.getElementById("step2").value
 
 
-    document.getElementById("display2").innerHTML = "<h1>" + "Please Wait " + "</h1>" + "<i class='material-icons'>access_time</i>" + "<h5>"+ "Getting your Nas Tokens Now" + "</h5>";
 
-    setTimeout(function () {
-       state = neb.api.getAccountState(account.getAddressString());
-        generatedAccountStateBalance.push(state);
+    if (userInput != ""){
+
+        var email = Math.random() + "test@demo.io";
+        var url = "https://testnet.nebulas.io/claim/api/claim/"+ email+ "/"+ userInput +"/";
+        var request = new window.XMLHttpRequest();
+        request.open("GET", url, false);
+        request.send();
+        result = JSON.parse(request.responseText);
 
 
-        document.getElementById("display2").innerHTML =  "<h1>" +"Step 2: Claim Nas."  + "</h1>"+ "<h3>" +" Tokens received "  + "<i class='material-icons'>thumb_up</i>"+"</h3>" +"<button onclick='claimNas()'>" + "Claim Nas"+ "</button>"
 
-        console.log(state.balance);
-        console.log(state.nonce);
-    }, 5000);
+        document.getElementById("display2").innerHTML = "<h1>" + "Please Wait " + "</h1>" + "<i class='material-icons time'>access_time</i>" + "<h5>"+ "Getting your Nas Tokens Now" + "</h5>";
+
+        setTimeout(function () {
+            //state = neb.api.getAccountState(account.getAddressString());
+            //generatedAccountStateBalance.push(state);
+
+
+            document.getElementById("display2").innerHTML =  "<h1>" +"Step 2: Claim Tokens."  + "</h1>"+ "<textarea id='address'>" + userInput + "</textarea>"
+                +"<h3>" +" Tokens received "  + "<i class='material-icons'>thumb_up</i>"+ "<button onclick='claimNas()'>Tokens" + ""+ "</button>"
+
+            //console.log(state.balance);
+            //console.log(state.nonce);
+        }, 5000);
+
+
+
+
+
+
+
+
+    }else {
+
+
+
+        var email = Math.random() + "test@demo.io";
+        var url = "https://testnet.nebulas.io/claim/api/claim/"+ email+ "/"+ account.getAddressString() +"/";
+        var request = new window.XMLHttpRequest();
+        request.open("GET", url, false);
+        request.send();
+        result = JSON.parse(request.responseText);
+
+        document.getElementById("display2").innerHTML = "<h1>" + "Please Wait " + "</h1>" + "<i class='material-icons time'>access_time</i>" + "<h5>"+ "Getting your Nas Tokens Now" + "</h5>";
+
+        setTimeout(function () {
+            //state = neb.api.getAccountState(account.getAddressString());
+            //generatedAccountStateBalance.push(state);
+
+
+            document.getElementById("display2").innerHTML =  "<h1>" +"Step 2: Claim Tokens."  + "</h1>"+ "<textarea id='address'>" + account.getAddressString() + "</textarea>"
+                +"<h3>" +" Tokens received "  + "<i class='material-icons'>thumb_up</i>"+ "<button onclick='claimNas()'>Tokens" + ""+ "</button>"
+
+            //console.log(state.balance);
+            //console.log(state.nonce);
+        }, 5000);
+    }
 }
 
 
@@ -81,12 +124,34 @@ function claimNas() {
 
 function getAccountStateFuncWeb() {
 
+    var accountInput = document.getElementById("step3").value;
 
 
-    document.getElementById("display3").innerHTML = "<h1>" + "Step 3: Check Account Balance." +"</h1>" + " <i class='material-icons'>account_balance</i> " + "<h3>" + "Your Balance: " + state.balance + "</h3>" + "<h3>" + "Nonce: " + state.nonce + "</h3>"+  "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>"
 
-    console.log(state.balance);
-    console.log(state.nonce);
+    if (accountInput != ""){
+
+        state = neb.api.getAccountState(accountInput);
+
+
+        document.getElementById("display3").innerHTML = "<h1>" + "Step 3: Check Account Balance." + "</h1>" +  "<textarea id='step3' placeholder='Enter Your Account address or press TOKENS to get tokens sent to your generated account'>" + accountInput +"</textarea>"+"<i class='material-icons'>account_balance</i> " + "<h3>" + "Your Balance: " + state.balance + "</h3>" + "<h3>" + "Nonce: " + state.nonce + "</h3>"+  "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>"
+
+
+
+
+    }else{
+
+
+
+        state = neb.api.getAccountState(account.getAddressString());
+
+        document.getElementById("display3").innerHTML = "<h1>" + "Step 3: Check Account Balance." + "</h1>" +  "<textarea placeholder='Enter Your Account address or press TOKENS to get tokens sent to your generated account'>" + account.getAddressString() +"</textarea>"+"<i class='material-icons'>account_balance</i> " + "<h3>" + "Your Balance: " + state.balance + "</h3>" + "<h3>" + "Nonce: " + state.nonce + "</h3>"+  "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>"
+
+        console.log(state.balance);
+        console.log(state.nonce);
+    }
+
+
+
 }
 
 
@@ -104,6 +169,7 @@ function generateTransaction() {
 
    // document.getElementById("display4.1").innerHTML = "<textarea>" + tx.toString() + "</textarea>" + "<h6>" + "You just created a txHash and signed the transaction "+ "</h6>";
 
+    //todo: allow the user to input his own "to" and "from" we need to add 2 textareas or input tags
 
     document.getElementById("display4").innerHTML =  "<h1>" + "Step 4: Make TxHash and Sign."   + "</h1>"+ "<textarea>" + tx.toString() + "</textarea>"+ "<button onclick='generateTransaction()'>" + "Generate TxHash and Sign"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>"
 
