@@ -99,7 +99,7 @@ function claimNas() {
                 document.getElementById("display2").innerHTML = "<h1>" +"Step 2: Claim Tokens."  + "</h1>"+"<i class='material-icons up'>thumb_up</i>"+"<textarea id='step2'>" + account.getAddressString() + "</textarea>"+"<button onclick='claimNas()'>" + "Tokens"+ "</button>"+ "<button onclick='getAccountStateFuncWeb()'>" + "Account Balance"+ "</button>" + "<h6>" + "Your Balance: " + state.balance + "</h6>";
 
                 console.log("The balance: "+state.balance);
-            }, 12000);
+            }, 5000);
 
 
             setTimeout(function () {
@@ -110,7 +110,7 @@ function claimNas() {
                     "<h5>"+ "Getting tokens from: " + "</h5>" +
                     "<h5>"+ "https://testnet.nebulas.io/claim/api/claim/" + "</h5>"
 
-            }, 5000);
+            }, 3000);
 
             setTimeout(function () {
 
@@ -226,7 +226,6 @@ function getAccountStateFuncWeb() {
         console.log("element != null");
         userInput = element.value;
     }
-
 
     if (userInput != null) {
         console.log("userInput != null");
@@ -358,45 +357,114 @@ function generateTransaction() {
     var testnetchainID = 1001;
 
 
-    var fromAddress = document.getElementById("step3").value;
+
+
+
+    /*
+      var toAddress;
+    var toAddressCheck = document.getElementById("step3.1");
+    if (toAddressCheck != null) {
+        console.log("toAddressCheck != null");
+        toAddress = toAddressCheck.value;
+    }else {
+        alert("The to address is empty")
+    }
+*/
+
+    //var fromAddress = document.getElementById("step3").value;
     var toAddress = document.getElementById("step3.1").value;
 
+    console.log(toAddress);
 
-    if (fromAddress != ""){
 
-        state = neb.api.getAccountState(fromAddress);
+    //if (toAddress != ""){
+
+    if (toAddress != null){
+        console.log("toAddress != null");
+        state = neb.api.getAccountState(account.getAddressString());
 
         // tx will search for a private key from account
-        tx = new Transaction(testnetchainID, fromAddress, toAddress, neb.nasToBasic("1"), parseInt(state.nonce)+1);
+        tx = new Transaction(testnetchainID, account, toAddress, neb.nasToBasic("1"), parseInt(state.nonce)+1);
 
         tx.signTransaction();
 
-        //todo: allow the user to input his own "to" and "from" we need to add 2 textareas or input tags
+        document.getElementById("display3").innerHTML = "<h1>" + "Step 3: Make TxHash and Sign."   + "</h1>"+
+            "<h4>" + "TO ADDRESS"+ "</h4>"+
+            "<textarea id='step3.1' placeholder='Receiving: Enter a TO Address - This address you will Send to.'>" + "</textarea>" +
+            "<h4>" + "VALUE TO SEND"+ "</h4>"+
+            "<textarea id='step3.2' placeholder='Value to Send: default is 10'>" + "</textarea>"+"<h4>" + "GAS PRICE"+ "</h4>"+
+            "<textarea id='step3.3' placeholder='GAS PRICE: default is 10'>" + "</textarea>"+ "<h4>" + "GAS LIMIT"+ "</h4>"+
+            "<textarea id='step3.4' placeholder='GAS LIMIT: default is 10'>" + "</textarea>"+"<h4>" + "OUTPUT"+ "</h4>"+
+            "<textarea id='step3.5' placeholder='SIGNED OUTPUT'>" +tx.toString()+ "</textarea>"+
+            "<button onclick='generateTransaction()'>" + "Generate TxHash and Sign"+ "</button>"
 
-        document.getElementById("display3").innerHTML =  "<h1>" + "Step 4: Make TxHash and Sign."   + "</h1>"+ "<textarea>" + tx.toString() + "</textarea>"+ "<button onclick='generateTransaction()'>" + "Generate TxHash and Sign"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>";
+
 
         console.log(tx.toString());
         console.log(tx.toProtoString());
+    }
+
+if (toAddress == null){
+        alert("ENter a to address")
+}
 
 
-    }else {
+
 
         state = neb.api.getAccountState(account.getAddressString());
 
-        tx = new Transaction(testnetchainID, account, account, neb.nasToBasic("1"), parseInt(state.nonce)+1);
+        // tx will search for a private key from account
+        tx = new Transaction(testnetchainID, account, toAddress, neb.nasToBasic("1"), parseInt(state.nonce)+1);
 
         tx.signTransaction();
 
         //todo: allow the user to input his own "to" and "from" we need to add 2 textareas or input tags
 
-        document.getElementById("display3").innerHTML =  "<h1>" + "Step 4: Make TxHash and Sign."   + "</h1>"+ "<textarea>" + tx.toString() + "</textarea>"+ "<button onclick='generateTransaction()'>" + "Generate TxHash and Sign"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>";
+        //document.getElementById("display3").innerHTML =  "<h1>" + "Step 4: Make TxHash and Sign."   + "</h1>"+ "<textarea>" + tx.toString() + "</textarea>"+ "<button onclick='generateTransaction()'>" + "Generate TxHash and Sign"+ "</button>" + "<p>" + "We need to generate a txHash in order to send a transaction"+ "</p>";
+
+
+        document.getElementById("display3").innerHTML = "<h1>" + "Step 3: Make TxHash and Sign."   + "</h1>"+
+        "<h4>" + "TO ADDRESS"+ "</h4>"+
+        "<textarea id='step3.1' placeholder='Receiving: Enter a TO Address - This address you will Send to.'>" + "</textarea>" +
+        "<h4>" + "VALUE TO SEND"+ "</h4>"+
+        "<textarea id='step3.2' placeholder='Value to Send: default is 10'>" + "</textarea>"+"<h4>" + "GAS PRICE"+ "</h4>"+
+        "<textarea id='step3.3' placeholder='GAS PRICE: default is 10'>" + "</textarea>"+ "<h4>" + "GAS LIMIT"+ "</h4>"+
+        "<textarea id='step3.4' placeholder='GAS LIMIT: default is 10'>" + "</textarea>"+"<h4>" + "OUTPUT"+ "</h4>"+
+        "<textarea id='step3.5' placeholder='SIGNED OUTPUT'>" +tx.toString()+ "</textarea>"+
+        "<button onclick='generateTransaction()'>" + "Generate TxHash and Sign"+ "</button>"
+
 
 
         console.log(tx.toString());
         console.log(tx.toProtoString());
 
-    }
 
+    //}else {
+
+
+        state = neb.api.getAccountState(account.getAddressString());
+
+        tx = new Transaction(testnetchainID, account, toAddress, neb.nasToBasic("1"), parseInt(state.nonce)+1);
+
+        tx.signTransaction();
+
+        //todo: allow the user to input his own "to" and "from" we need to add 2 textareas or input tags
+
+        document.getElementById("display3").innerHTML = "<h1>" + "Step 3: Make TxHash and Sign."   + "</h1>"+
+            "<h4>" + "TO ADDRESS"+ "</h4>"+
+            "<textarea id='step3.1' placeholder='Receiving: Enter a TO Address - This address you will Send to.'>" + "</textarea>" +
+            "<h4>" + "VALUE TO SEND"+ "</h4>"+
+            "<textarea id='step3.2' placeholder='Value to Send: default is 10'>" + "</textarea>"+"<h4>" + "GAS PRICE"+ "</h4>"+
+            "<textarea id='step3.3' placeholder='GAS PRICE: default is 10'>" + "</textarea>"+ "<h4>" + "GAS LIMIT"+ "</h4>"+
+            "<textarea id='step3.4' placeholder='GAS LIMIT: default is 10'>" + "</textarea>"+"<h4>" + "OUTPUT"+ "</h4>"+
+            "<textarea id='step3.5' placeholder='SIGNED OUTPUT'>" +tx.toString()+ "</textarea>"+
+            "<button onclick='generateTransaction()'>" + "Generate TxHash and Sign"+ "</button>"
+
+
+        console.log(tx.toString());
+        console.log(tx.toProtoString());
+
+   // }
 }
 
 
